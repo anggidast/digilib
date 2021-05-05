@@ -27,10 +27,10 @@ Table books akan menampilkan judul, author, jumlah copy, dan see borrowers (admi
 
 
 Yang belum dikerjakan:
-- page masih berantakan (terutama bagian data edit belum terpopulate)
+- page masih berantakan (terutama bagian edit, datanya belum terpopulate)
 - role khusus admin/reader belum berfungsi
 - validasi data null/empty belum dibuat
-- fungsi reminder belum dibuat
+- fungsi reminder email belum dibuat
 -
 -
 
