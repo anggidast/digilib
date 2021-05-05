@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Books</title>
+</head>
+
+<body>
+  <h1>E-Books List</h1>
+
+  <table border="2">
+    <tr>
+      <th>No.</th>
+      <th>Code</th>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Genre</th>
+      <th>Copies</th>
+      <th>Action</th>
+    </tr>
+
+    <% data.forEach((el, i) => { %>
+    <tr>
+      <td><%= i+1 %> </td>
+      <td><%= el.ebookId() %> </td>
+      <td><%= el.title %></td>
+      <td><%= el.author %></td>
+      <td><%= el.genre %></td>
+      <td><%= el.copies %></td>
+      <td><a href="/ebooks/details/<%= el.id %>">See Borrower(s)</a> || <a href="/ebooks/edit/<%= el.id %>">Edit</a> || <a href="/ebooks/destroy/<%= el.id %>">Delete</a></td>
+    </tr>
+    <% }) %>
+  </table>
+
+  <form action="/ebooks/add"><br>
+    <button>Add Ebook</button>
+  </form>
+</body>
+
+</html>

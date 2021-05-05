@@ -1,0 +1,13 @@
+[{
+    "name": "Anggi Dastariana",
+    "email": "anggi@mail.com",
+    "password": "$2a$04$kmKpS1TPBBrEfeJm0laSEOMRnFWSJNZYGFG/S.ufso0xOseooBKEG",
+    "role": "reader"
+  },
+  {
+    "name": "Edgar Adirga",
+    "email": "edgar@mail.com",
+    "password": "$2a$04$z4s3AwGn.NLvQNoDNxI5Q.iB3KqtuCdnkfOTb04QJZ2ixZgZVEkCC",
+    "role": "admin"
+  }
+]

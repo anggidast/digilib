@@ -1,0 +1,49 @@
+[{
+    "title": "Anna Kerenina",
+    "genre": "Romance",
+    "author": "Leo Tolstoy",
+    "copies": 0
+  },
+  {
+    "title": "To Kill a Mockingbird",
+    "genre": "Social",
+    "author": "Harper Lee",
+    "copies": 0
+  },
+  {
+    "title": "The Great Gatsby",
+    "genre": "Historical",
+    "author": "F. Scott Fitzgerald",
+    "copies": 0
+  },
+  {
+    "title": "One Hundred Years of Solitude",
+    "genre": "Realism",
+    "author": "Gabriel Garcia Marquez",
+    "copies": 0
+  },
+  {
+    "title": "Don Quixote",
+    "genre": "Comedy",
+    "author": "Miguel de Cervantes",
+    "copies": 0
+  },
+  {
+    "title": "Beloved",
+    "genre": "Literature",
+    "author": "Toni Morrison",
+    "copies": 0
+  },
+  {
+    "title": "Moby Dick",
+    "genre": "Adventure",
+    "author": "Herman Melville",
+    "copies": 0
+  },
+  {
+    "title": "Hamlet",
+    "genre": "Drama",
+    "author": "Willian Shakespeare",
+    "copies": 0
+  }
+]

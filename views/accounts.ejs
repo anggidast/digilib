@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accounts</title>
+</head>
+
+<body>
+  <h1>Readers List</h1>
+
+  <table border="2">
+    <tr>
+      <th>No.</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Borrowed Books</th>
+      <th>Actions</th>
+    </tr>
+
+    <% data.forEach((el, i) => { %>
+    <tr>
+      <td><%= i+1 %> </td>
+      <td><%= el.name %></td>
+      <td><%= el.email %></td>
+      <td><%= el.EBooks.length %> || <a href="/accounts/details/<%= el.id %>">See Details</a></td>
+      <td><a href="/accounts/edit/<%= el.id %>">Edit</a> || <a href="/accounts/destroy/<%= el.id %>">Delete</a></td>
+    </tr>
+    <% }) %>
+  </table>
+
+  <form action="/accounts/add"><br>
+    <button>Add Account</button>
+  </form>
+</body>
+
+</html>
