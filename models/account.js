@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
       Account.belongsToMany(models.EBook, { through: 'borrow_log' });
       Account.hasMany(models.borrow_log, { foreignKey: 'AccountId' });
     }
+
+    // days(borrowed_day) {
+    //   return borrowDays(new Date(), borrowed_day);
+    // }
   };
   Account.init({
     name: DataTypes.STRING,

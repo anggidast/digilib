@@ -8,9 +8,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      days: {
-        type: Sequelize.INTEGER
-      },
       AccountId: {
         type: Sequelize.INTEGER,
         references: {

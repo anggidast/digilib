@@ -8,26 +8,32 @@ class Controller {
     let account;
     let search = req.query.search || '';
     let email = req.session.email || null;
-    Account.findOne({where: {email: email}})
-    .then(data => {
-      account = data;
-      if (account.role == 'reader') {
-        return EBook.findAll({
-          where: {
-            title: {[Op.iLike]: '%${search}%'},
-            copies: {
+    Account.findOne({ where: { email: email } })
+      .then(data => {
+        account = data;
+        if (account.role == 'reader') {
+          return EBook.findAll({
+            where: {
+              title: {
+                [Op.iLike]: `%${search}%`
+              },
+              copies: {
                 [Op.gt]: 0
               }
             },
             order: ['id']
           })
-          } else {
-            return EBook.findAll({where: {
-              title: {[Op.iLike]: '%${search}%'}
-              },
-              order: ['id']})
-          } 
-    })
+        } else {
+          return EBook.findAll({
+            where: {
+              title: {
+                [Op.iLike]: `%${search}%`
+              }
+            },
+            order: ['id']
+          })
+        }
+      })
       .then(data => res.render('ebooks', { data, account }))
       .catch(err => res.send(err));
   }
@@ -70,19 +76,19 @@ class Controller {
     let email = req.session.email || null;
     let account;
 
-    EBook.decrement('copies', {where: req.params})
-    .then(() => Account.findOne({where: {email: email}}))
-    .then(data => {
-      account = data;
-      return borrow_log.create({
-        AccountId: account.id,
-        EBookId: req.params.id,
-        days: 0,
-        return_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
-      });
-    })
-    .then((data) => res.redirect('/ebooks'))
-    .catch(err => res.send(err));
+    EBook.decrement('copies', { where: req.params })
+      .then(() => Account.findOne({ where: { email: email } }))
+      .then(data => {
+        account = data;
+        return borrow_log.create({
+          AccountId: account.id,
+          EBookId: req.params.id,
+          days: 0,
+          return_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+        });
+      })
+      .then((data) => res.redirect('/ebooks'))
+      .catch(err => res.send(err));
   }
 }
 

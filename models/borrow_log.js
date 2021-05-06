@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
       borrow_log.belongsTo(models.Account, { foreignKey: 'AccountId' });
       borrow_log.belongsTo(models.EBook, { foreignKey: 'EBookId' });
     }
+
+    days(borrowed_day) {
+      return borrowDays(new Date(), borrowed_day);
+    }
   };
   borrow_log.init({
     id: {
@@ -25,7 +29,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     AccountId: DataTypes.INTEGER,
     EBookId: DataTypes.INTEGER,
-    days: DataTypes.INTEGER,
     return_date: DataTypes.DATE,
   }, {
     sequelize,

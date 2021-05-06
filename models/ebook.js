@@ -15,6 +15,10 @@ module.exports = (sequelize, DataTypes) => {
       EBook.hasMany(models.borrow_log, { foreignKey: 'EBookId' });
     }
 
+    // days(borrowed_day) {
+    //   return borrowDays(new Date(), borrowed_day);
+    // }
+
     ebookId() {
       return this.genre[0] + this.genre[1].toUpperCase() + this.id;
     }
