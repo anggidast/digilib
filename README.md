@@ -29,8 +29,7 @@ Table books akan menampilkan judul, author, jumlah copy, dan see borrowers (admi
 Yang belum dikerjakan:
 
 - page masih berantakan (terutama bagian edit, datanya belum terpopulate)
-- role khusus admin/reader belum berfungsi
 - validasi data null/empty belum dibuat
 - fungsi reminder email belum dibuat
-- search bar belum dibuat
--
+- days pada table borrow_log belum berfungsi (helpernya sudah dibuat)
+- rollback pada account/details belum berfungsi (untuk mengembalikan buku dan menambahkan copies pada table buku)
