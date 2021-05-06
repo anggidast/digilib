@@ -32,5 +32,3 @@ Yang belum dikerjakan:
 - page belum selesai (terutama bagian edit, datanya belum terpopulate)
 - validasi data null/empty belum dibuat
 - fungsi reminder email belum dibuat
-- days pada table borrow_log belum berfungsi (helpernya sudah dibuat)
-- rollback pada account/details belum berfungsi (untuk mengembalikan ebooks dan menambahkan copies pada table ebooks)
