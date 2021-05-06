@@ -2,25 +2,25 @@
     "title": "Anna Kerenina",
     "genre": "Romance",
     "author": "Leo Tolstoy",
-    "copies": 0
+    "copies": 10
   },
   {
     "title": "To Kill a Mockingbird",
     "genre": "Social",
     "author": "Harper Lee",
-    "copies": 0
+    "copies": 6
   },
   {
     "title": "The Great Gatsby",
     "genre": "Historical",
     "author": "F. Scott Fitzgerald",
-    "copies": 0
+    "copies": 14
   },
   {
     "title": "One Hundred Years of Solitude",
     "genre": "Realism",
     "author": "Gabriel Garcia Marquez",
-    "copies": 0
+    "copies": 7
   },
   {
     "title": "Don Quixote",
@@ -44,6 +44,6 @@
     "title": "Hamlet",
     "genre": "Drama",
     "author": "Willian Shakespeare",
-    "copies": 0
+    "copies": 3
   }
 ]

@@ -1,31 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Details</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Details</title>
-</head>
+  <body>
+    <h1><%= data.name %></h1>
 
-<body>
-  <h1><%= data.name %> </h1>
+    <table border="2">
+      <tr>
+        <th>Title</th>
+        <th>Borrow Date</th>
+        <th>Return Date</th>
+        <th>Action</th>
+      </tr>
 
-  <table border="2">
-    <tr>
-      <th>Title</th>
-      <th>Borrow Date</th>
-      <th>Return Date</th>
-      <th>Action</th>
-    </tr>
-
-    <tr>
-      <td><%= data.EBooks.title %></td>
-      <td></td>
-      <td></td>
-      <td><a href="/accounts/reminder<%= data.id %> ">Remind</a></td>
-    </tr>
-  </table>
-</body>
-
+      <% data.EBooks.forEach(el => { %>
+      <tr>
+        <td><%= el.title %></td>
+        <td><%= dateParse(el.borrow_log.createdAt) %></td>
+        <td><%= dateParse(el.borrow_log.return_date) %></td>
+        <% if(account.role == 'admin') { %>
+        <td>
+          <a href="/accounts/reminder<%= data.id %> ">Remind</a> ||
+          <a href="/accounts/rollback/ <%= el.borrow_log.id %> ">Rollback</a>
+        </td>
+        <% } else { %>
+        <td>
+          <a href="/accounts/rollback/ <%= el.borrow_log.id %> ">Rollback</a>
+        </td>
+        <% } %>
+      </tr>
+      <% }) %>
+    </table>
+  </body>
 </html>

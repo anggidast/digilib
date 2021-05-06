@@ -10,5 +10,6 @@ router.post('/edit/:id', Controller.postEdit);
 router.get('/reminder/:id', Controller.reminder);
 router.get('/details/:id', Controller.details);
 router.get('/destroy/:id', Controller.destroy);
+router.get('/rollback/:id', Controller.rollback);
 
 module.exports = router;

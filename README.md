@@ -1,4 +1,5 @@
 # digilib
+
 Pair Project Hactive8 Phase 1
 
 MVP: kirim email dan notifikasi
@@ -25,12 +26,11 @@ Table accounts akan menampilkan nama, email, dan see borrowed book yang akan men
 
 Table books akan menampilkan judul, author, jumlah copy, dan see borrowers (admin) yang akan menampilkan table peminjam dari buku tersebut
 
-
 Yang belum dikerjakan:
+
 - page masih berantakan (terutama bagian edit, datanya belum terpopulate)
 - role khusus admin/reader belum berfungsi
 - validasi data null/empty belum dibuat
 - fungsi reminder email belum dibuat
+- search bar belum dibuat
 -
--
-

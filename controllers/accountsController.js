@@ -1,14 +1,20 @@
-const { EBook, Account } = require('../models');
+const { EBook, Account, borrow_log } = require('../models');
 const { hash, compareHash } = require('../helpers/bcrypt');
 
 class Controller {
   static findAll(req, res) {
-    Account.findAll({
-        include: [EBook],
-        where: {
-          role: 'reader'
-        },
-        order: ['id']
+    let email = req.session.email || null;
+    Account.findOne({where: {email: email}})
+      .then((data) => {
+        if (data.role == 'admin') {
+          return Account.findAll({
+            include: [EBook],
+            where: {
+              role: 'reader'
+            },
+            order: ['id']
+          })
+        } else res.redirect('accounts/details/' + data.id);
       })
       .then(data => res.render('accounts', { data }))
       .catch(err => res.send(err));
@@ -46,8 +52,14 @@ class Controller {
   }
 
   static details(req, res) {
-    Account.findByPk(req.params.id, { include: [EBook] })
-      .then(data => res.render('account-details', { data }))
+    let account;
+    let email = req.session.email || null;
+    Account.findOne({where: {email: email}})
+    .then(data => {
+      account = data;
+      return Account.findByPk(req.params.id, { include: [EBook] })
+    })
+      .then(data => res.render('account-details', { data, account }))
       .catch(err => res.send(err));
   }
 
@@ -55,6 +67,19 @@ class Controller {
     Account.destroy({ where: req.params })
       .then(() => res.redirect('/accounts'))
       .catch(err => res.send(err));
+  }
+
+  // rollback masih error
+  static rollback(req, res) {
+    let log;
+    borrow_log.findByPk(req.params.id, {include: [Account]})
+    .then(data => {
+      log = data;
+      return EBook.increment('copies', {where: {id: log.EBookId}})
+    })
+    .then(() => borrow_log.destroy({where: req.params}))
+    .then(() => res.redirect('accounts/details/' + log.AccountId))
+    .catch(err => res.send(err));
   }
 }
 

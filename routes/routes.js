@@ -15,13 +15,14 @@ router.use(session({
 
 router.get('/home', (req, res) => {
   if (req.session.isLogin) {
-    // let name = req.session.email || null;
-    res.render('home');
+    let email = req.session.email || null;
+    Account.findOne({where: {email: email}})
+    .then(data => res.render('home', {data}))
+    .catch(err => res.send(err));
   } else {
-    res.redirect('/login');
+    res.redirect('/');
   }
 });
-
 
 router.get('/', (req, res) => {
   if (!req.session.isLogin) {
