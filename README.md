@@ -29,6 +29,4 @@ Table books akan menampilkan judul, author, jumlah copy, dan see borrowers (admi
 
 Yang belum dikerjakan:
 
-- page belum selesai (terutama bagian edit, datanya belum terpopulate)
-- validasi data null/empty belum dibuat
-- fungsi reminder email belum dibuat
+- tampilan belum cantik
