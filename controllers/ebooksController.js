@@ -6,6 +6,8 @@ class Controller {
     if (req.session.isLogin) {
       let search = req.query.search || '';
       let email = req.session.email || null;
+      let err = req.query.err || null;
+      let success = req.query.success || null;
       let session;
       Account.findOne({ where: { email: email } })
         .then(data => {
@@ -34,7 +36,7 @@ class Controller {
             })
           }
         })
-        .then(data => res.render('ebooks', { data, session }))
+        .then(data => res.render('ebooks', { data, session, err, success }))
         .catch(err => res.send(err));
     } else {
       res.redirect('/');
@@ -101,20 +103,40 @@ class Controller {
 
   static borrow(req, res) {
     if (req.session.isLogin) {
-      // let email = req.session.email || null;
-      // let account;
       let session = req.app.locals.session || null;
-      EBook.decrement('copies', { where: req.params })
-        // .then(() => Account.findOne({ where: { email: email } }))
+      borrow_log.findOne({
+          include: [EBook],
+          where: {
+            AccountId: session.id,
+            EBookId: req.params.id
+          }
+        })
+        .then((data) => {
+          if (data == null) return EBook.decrement('copies', { where: req.params })
+          else {
+            let err = `E-Books berjudul ${data.EBook.title} sudah kamu pinjam`
+            res.redirect('/ebooks?err=' + err);
+          }
+        })
         .then(() => {
-          // account = data;
           return borrow_log.create({
             AccountId: session.id,
             EBookId: req.params.id,
             return_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
           });
         })
-        .then(() => res.redirect('/ebooks'))
+        .then(() => {
+          return borrow_log.findOne({
+            include: [EBook],
+            where: {
+              EBookId: req.params.id
+            }
+          });
+        })
+        .then((data) => {
+          let success = `E-Books berjudul ${data.EBook.title} berhasil kamu pinjam`;
+          res.redirect('/ebooks?success=' + success);
+        })
         .catch(err => res.send(err));
     } else {
       res.redirect('/');

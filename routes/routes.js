@@ -27,7 +27,8 @@ router.get('/home', (req, res) => {
 router.get('/', (req, res) => {
   if (!req.session.isLogin) {
     let error = req.query.err || null
-    res.render('login', { error });
+    let success = req.query.success || null
+    res.render('login', { error, success });
   } else {
     res.redirect('/home')
   }
@@ -64,6 +65,24 @@ router.get('/logout', (req, res) => {
   });
   delete req.app.locals.session;
 });
+
+router.get('/newaccount', (req, res) => {
+  res.render('newaccount');
+});
+
+router.post('/newaccount', (req, res) => {
+  Account.create({
+      name: req.body.name,
+      role: 'reader',
+      email: req.body.email,
+      password: req.body.password
+    })
+    .then(() => {
+      let success = 'New account created, you can login now!';
+      res.redirect('/?success=' + success);
+    })
+    .catch(err => res.send(err));
+})
 
 router.use('/accounts', accountsRoute);
 router.use('/ebooks', ebooksRoute);

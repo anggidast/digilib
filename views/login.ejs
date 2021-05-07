@@ -1,24 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Digilib</title>
-</head>
+<%- include('partials/head')  -%>
 
 <body>
+  <h1>DIGILIB</h1>
+  <h4>Login to access Digilib</h4>
+
   <% if(error) %>
   <h3><%= error %></h3>
 
-  <form method="post">
-    <input type="text" name="email" id="">
-    <input type="password" name="password" id="">
-    <button type="submit">Login</button>
-  </form><br>
+  <% if(success) %>
+  <h3><%= success %></h3>
 
-  <a href="/">Back to Home</a>
+  <form method="post">
+    <input required type="text" name="email" id="" placeholder="Email"><br><br>
+    <input required type="password" name="password" id="" placeholder="Password"><br><br>
+    <button type="submit">Login</button>
+  </form>
+  <p>Don't have an account? Create new one <a href="/newaccount">here</a></p>
 </body>
 
 </html>

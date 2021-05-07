@@ -1,17 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>E-Books</title>
-</head>
+<%- include('partials/head')  -%>
 
 <body>
   <%- include('partials/nav')  -%>
 
   <h1>E-Books List</h1>
+
+  <% if(err) %>
+  <h3><%= err %></h3>
+
+  <% if(success) %>
+  <h3><%= success %></h3>
 
   <form action="">
     <input type="text" name="search" placeholder="Search by title here!" />
@@ -42,7 +40,7 @@
       <td>
         <a href="/ebooks/details/<%= el.id %>">See Borrower(s)</a> ||
         <a href="/ebooks/edit/<%= el.id %>">Edit</a> ||
-        <a href="/ebooks/destroy/<%= el.id %>">Delete</a>
+        <a href="/ebooks/destroy/<%= el.id %>" onclick="return confirm('Are you sure you want to delete <%= el.title %> ?')">Delete</a>
       </td>
       <% } else { %>
       <td>

@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Details</title>
-</head>
+<%- include('partials/head')  -%>
 
 <body>
   <%- include('partials/nav')  -%>
@@ -14,11 +6,15 @@
   <h1><%= data.name %></h1>
 
   <% if(err) { %>
-  <p><%= err %> </p>
+  <h3><%= err %> </h3>
   <% } %>
 
   <% if(success) { %>
-  <p><%= success %> </p>
+  <h3><%= success %> </h3>
+  <% } %>
+
+  <% if(rb) { %>
+  <h3><%= rb %> </h3>
   <% } %>
 
   <table border="2">
@@ -39,11 +35,11 @@
       <% if(session.role == 'admin') { %>
       <td>
         <a href="/accounts/reminder/<%= el.borrow_log.id %> ">Remind</a> ||
-        <a href="/accounts/rollback/ <%= el.borrow_log.id %> ">Rollback</a>
+        <a href="/accounts/rollback/ <%= el.borrow_log.id %> " onclick="return confirm('Are you sure you want to rollback <%= el.title %> ?')">Rollback</a>
       </td>
       <% } else { %>
       <td>
-        <a href="/accounts/rollback/ <%= el.borrow_log.id %> ">Rollback</a>
+        <a href="/accounts/rollback/ <%= el.borrow_log.id %> " onclick="return confirm('Are you sure you want to rollback <%= el.title %> ?')">Rollback</a>
       </td>
       <% } %>
     </tr>

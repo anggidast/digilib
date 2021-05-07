@@ -29,7 +29,7 @@ class Controller {
 
   static getAdd(req, res) {
     if (req.session.isLogin) {
-      let session = req.app.locals.session;
+      let session = req.app.locals.session || null;
       res.render('account-form', { data: null, session });
     } else {
       res.redirect('/');
@@ -37,7 +37,6 @@ class Controller {
   }
 
   static postAdd(req, res) {
-    console.log(req.body);
     Account.create({
         name: req.body.name,
         role: 'reader',
@@ -50,7 +49,7 @@ class Controller {
 
   static getEdit(req, res) {
     if (req.session.isLogin) {
-      let session = req.app.locals.session;
+      let session = req.app.locals.session || null;
       Account.findByPk(req.params.id)
         .then(data => {
           res.render('account-form', { data, session })
@@ -93,6 +92,7 @@ class Controller {
       let email = req.session.email || null;
       let err = req.app.locals.err || null;
       let success = req.app.locals.success || null;
+      let rb = req.query.rb || null;
 
       delete req.app.locals.err;
       delete req.app.locals.success;
@@ -102,7 +102,7 @@ class Controller {
           session = data;
           return Account.findByPk(req.params.id, { include: [EBook] })
         })
-        .then(data => res.render('account-details', { data, session, err, success }))
+        .then(data => res.render('account-details', { data, session, err, success, rb }))
         .catch(err => res.send(err));
     } else {
       res.redirect('/');
@@ -120,19 +120,20 @@ class Controller {
   }
 
   static rollback(req, res) {
-    if (req.session.isLogin) {
-      let log;
-      borrow_log.findByPk(req.params.id, { include: [Account] })
-        .then(data => {
-          log = data;
-          return EBook.increment('copies', { where: { id: log.EBookId } })
-        })
-        .then(() => borrow_log.destroy({ where: req.params }))
-        .then(() => res.redirect('/accounts/details/' + log.AccountId))
-        .catch(err => res.send(err));
-    } else {
-      res.redirect('/');
-    }
+    let log;
+    let title;
+    borrow_log.findByPk(req.params.id, { include: [Account, EBook] })
+      .then(data => {
+        title = data.EBook.title;
+        log = data;
+        return EBook.increment('copies', { where: { id: log.EBookId } })
+      })
+      .then(() => borrow_log.destroy({ where: req.params }))
+      .then(() => {
+        let rb = `E-Book berjudul ${title} berhasil dikembalikan`;
+        res.redirect('/accounts/details/' + log.AccountId + '?rb=' + rb);
+      })
+      .catch(err => res.send(err));
   }
 }
 
