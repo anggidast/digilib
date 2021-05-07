@@ -43,8 +43,8 @@ router.post('/', (req, res) => {
     .then(user => {
       if (user) {
         if (compareHash(req.body.password, user.password)) {
+          req.session = user;
           req.session.isLogin = true;
-          req.session.email = user.email
           res.redirect('/home');
         } else {
           throw new Error("Password tidak sesuai");
