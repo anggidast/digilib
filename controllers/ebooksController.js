@@ -8,6 +8,7 @@ class Controller {
     let account;
     let search = req.query.search || '';
     let email = req.session.email || null;
+    console.log(req.session)
     Account.findOne({ where: { email: email } })
       .then(data => {
         account = data;
@@ -39,7 +40,7 @@ class Controller {
   }
 
   static getAdd(req, res) {
-    res.render('ebook-form', { data: null });
+    res.render('ebook-form', { data: {} });
   }
 
   static postAdd(req, res) {
@@ -61,8 +62,14 @@ class Controller {
   }
 
   static details(req, res) {
-    EBook.findByPk(req.params.id, { include: [Account] })
+    EBook.findByPk(req.params.id, { 
+      include: [Account],
+      through: {
+        attributes: ['createdAt', 'return_date']
+      } 
+    })
       .then(data => res.render('ebook-details', { data }))
+      // .then(data => console.log(data.Accounts[0].borrow_log.return_date))
       .catch(err => res.send(err));
   }
 

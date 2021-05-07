@@ -20,10 +20,12 @@
     </tr>
 
     <tr>
-      <td><%= data.Accounts.name %></td>
-      <td></td>
-      <td></td>
-      <td><a href="/accounts/reminder<%= data.id %> ">Remind</a></td>
+      <% data.Accounts.forEach(el=>{%>
+        <td><%= el.name %></td>
+        <td><%= dateParse(el.borrow_log.createdAt) %></td>
+        <td><%= dateParse(el.borrow_log.return_date) %></td>
+        <td><a href="/accounts/reminder<%= data.id %> ">Remind</a></td>
+      <% }) %>
     </tr>
   </table>
 </body>

@@ -24,9 +24,24 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   EBook.init({
-    title: DataTypes.STRING,
-    author: DataTypes.STRING,
-    genre: DataTypes.STRING,
+    title: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {msg: "Please input title"}
+      }
+    },
+    author: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {msg: "Please input author"}
+      }
+    },
+    genre: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: {msg: "Please input genre"}
+      }
+    },
     copies: DataTypes.INTEGER
   }, {
     sequelize,
