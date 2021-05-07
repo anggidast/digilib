@@ -18,15 +18,18 @@
       <th>Borrower Name</th>
       <th>Borrow Date</th>
       <th>Return Date</th>
-      <th>Action</th>
+      <th>Days</th>
     </tr>
 
+    <% data.Accounts.forEach(el=>{%>
     <tr>
-      <td><%= data.Accounts.name %></td>
-      <td></td>
-      <td></td>
-      <td><a href="/accounts/reminder<%= data.id %> ">Remind</a></td>
+      <td><%= el.name %></td>
+      <td><%= dateParse(el.borrow_log.createdAt) %></td>
+      <td><%= dateParse(el.borrow_log.return_date) %></td>
+      <td><%= el.borrow_log.days(el.borrow_log.createdAt) %> </td>
+      <!-- <td><a href="/accounts/reminder/<%= el.borrow_log.id %> ">Remind</a></td> -->
     </tr>
+    <% }) %>
   </table>
 </body>
 

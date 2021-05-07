@@ -11,12 +11,19 @@
 <body>
   <%- include('partials/nav')  -%>
 
+  <% if(data) { %>
+  <h1>Edit Account</h1>
+  <% } else { %>
   <h1>Add Account</h1>
+  <% } %>
 
   <form action="" method="post">
-    <input type="text" name="name" id="name" placeholder="Name">
-    <input type="text" name="email" id="email" placeholder="Email">
-    <input type="password" name="password" id="password" placeholder="Password">
+    <label for="name">Name:</label><br>
+    <input type="text" name="name" id="name" placeholder="Name" value="<%= data.name %> "><br>
+    <label for="email">Email:</label><br>
+    <input type="text" name="email" id="email" placeholder="Email" value="<%= data.email %> "><br>
+    <label for="password">Password:</label><br>
+    <input type="password" name="password" id="password" placeholder="Password"><br><br>
     <button type="submit">Save</button>
   </form>
 </body>
