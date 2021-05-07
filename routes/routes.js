@@ -2,7 +2,7 @@ const express = require('express');
 const session = require('express-session')
 const router = express.Router();
 const { Account } = require('../models');
-const { hash, compareHash } = require('../helpers/bcrypt');
+const { compareHash } = require('../helpers/bcrypt');
 const accountsRoute = require('./accountsRoute');
 const ebooksRoute = require('./ebooksRoute');
 
@@ -16,9 +16,9 @@ router.use(session({
 router.get('/home', (req, res) => {
   if (req.session.isLogin) {
     let email = req.session.email || null;
-    Account.findOne({where: {email: email}})
-    .then(data => res.render('home', {data}))
-    .catch(err => res.send(err));
+    Account.findOne({ where: { email: email } })
+      .then(session => res.render('home', { session }))
+      .catch(err => res.send(err));
   } else {
     res.redirect('/');
   }
@@ -62,6 +62,7 @@ router.get('/logout', (req, res) => {
     if (err) res.send(err)
     res.redirect('/')
   });
+  delete req.app.locals.session;
 });
 
 router.use('/accounts', accountsRoute);

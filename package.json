@@ -1,7 +1,7 @@
 {
   "name": "digilib",
   "version": "1.0.0",
-  "description": "",
+  "description": "Pair Project Hactive8 Phase 1",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -18,5 +18,14 @@
     "nodemailer": "^6.6.0",
     "pg": "^8.6.0",
     "sequelize": "^6.6.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anggidast/digilib.git"
+  },
+  "bugs": {
+    "url": "https://github.com/anggidast/digilib/issues"
+  },
+  "homepage": "https://github.com/anggidast/digilib#readme"
 }

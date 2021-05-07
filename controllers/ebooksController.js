@@ -1,17 +1,16 @@
 const { EBook, Account, borrow_log } = require('../models');
-const express = require('express');
 const { Op } = require('sequelize');
-const borrowDays = require('../helpers/borrowDays');
 
 class Controller {
   static findAll(req, res) {
-    let account;
     let search = req.query.search || '';
     let email = req.session.email || null;
+    let session;
     Account.findOne({ where: { email: email } })
       .then(data => {
-        account = data;
-        if (account.role == 'reader') {
+        req.app.locals.session = data;
+        session = req.app.locals.session
+        if (session.role == 'reader') {
           return EBook.findAll({
             where: {
               title: {
@@ -34,12 +33,13 @@ class Controller {
           })
         }
       })
-      .then(data => res.render('ebooks', { data, account }))
+      .then(data => res.render('ebooks', { data, session }))
       .catch(err => res.send(err));
   }
 
   static getAdd(req, res) {
-    res.render('ebook-form', { data: null });
+    let session = req.app.locals.session || null;
+    res.render('ebook-form', { data: null, session });
   }
 
   static postAdd(req, res) {
@@ -49,8 +49,9 @@ class Controller {
   }
 
   static getEdit(req, res) {
+    let session = req.app.locals.session || null;
     EBook.findByPk(req.params.id)
-      .then(data => res.render('ebook-form', { data }))
+      .then(data => res.render('ebook-form', { data, session }))
       .catch(err => res.send(err));
   }
 
@@ -61,8 +62,14 @@ class Controller {
   }
 
   static details(req, res) {
-    EBook.findByPk(req.params.id, { include: [Account] })
-      .then(data => res.render('ebook-details', { data }))
+    let session = req.app.locals.session || null;
+    EBook.findByPk(req.params.id, {
+        include: [Account],
+        through: {
+          attributes: ['createdAt', 'return_date']
+        }
+      })
+      .then(data => res.render('ebook-details', { data, session }))
       .catch(err => res.send(err));
   }
 
@@ -73,21 +80,20 @@ class Controller {
   }
 
   static borrow(req, res) {
-    let email = req.session.email || null;
-    let account;
-
+    // let email = req.session.email || null;
+    // let account;
+    let session = req.app.locals.session || null;
     EBook.decrement('copies', { where: req.params })
-      .then(() => Account.findOne({ where: { email: email } }))
-      .then(data => {
-        account = data;
+      // .then(() => Account.findOne({ where: { email: email } }))
+      .then(() => {
+        // account = data;
         return borrow_log.create({
-          AccountId: account.id,
+          AccountId: session.id,
           EBookId: req.params.id,
-          days: 0,
           return_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
         });
       })
-      .then((data) => res.redirect('/ebooks'))
+      .then(() => res.redirect('/ebooks'))
       .catch(err => res.send(err));
   }
 }

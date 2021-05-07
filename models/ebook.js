@@ -15,18 +15,29 @@ module.exports = (sequelize, DataTypes) => {
       EBook.hasMany(models.borrow_log, { foreignKey: 'EBookId' });
     }
 
-    // days(borrowed_day) {
-    //   return borrowDays(new Date(), borrowed_day);
-    // }
-
     ebookId() {
       return this.genre[0] + this.genre[1].toUpperCase() + this.id;
     }
   };
   EBook.init({
-    title: DataTypes.STRING,
-    author: DataTypes.STRING,
-    genre: DataTypes.STRING,
+    title: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: { msg: "Please input title" }
+      }
+    },
+    author: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: { msg: "Please input author" }
+      }
+    },
+    genre: {
+      type: DataTypes.STRING,
+      validate: {
+        notEmpty: { msg: "Please input genre" }
+      }
+    },
     copies: DataTypes.INTEGER
   }, {
     sequelize,

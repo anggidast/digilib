@@ -34,10 +34,5 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'borrow_log',
   });
-  // borrow_log.beforeCreate(log => {
-  //   const today = new Date();
-  //   log.days = borrowDays(today, log.createdAt);
-  //   console.log(days);
-  // })
   return borrow_log;
 };

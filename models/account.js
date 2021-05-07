@@ -1,4 +1,6 @@
 'use strict';
+const { hash } = require('../helpers/bcrypt');
+
 const {
   Model
 } = require('sequelize');
@@ -15,9 +17,6 @@ module.exports = (sequelize, DataTypes) => {
       Account.hasMany(models.borrow_log, { foreignKey: 'AccountId' });
     }
 
-    // days(borrowed_day) {
-    //   return borrowDays(new Date(), borrowed_day);
-    // }
   };
   Account.init({
     name: DataTypes.STRING,

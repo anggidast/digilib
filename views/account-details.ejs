@@ -9,7 +9,17 @@
 </head>
 
 <body>
+  <%- include('partials/nav')  -%>
+
   <h1><%= data.name %></h1>
+
+  <% if(err) { %>
+  <p><%= err %> </p>
+  <% } %>
+
+  <% if(success) { %>
+  <p><%= success %> </p>
+  <% } %>
 
   <table border="2">
     <tr>
@@ -26,9 +36,9 @@
       <td><%= dateParse(el.borrow_log.createdAt) %></td>
       <td><%= dateParse(el.borrow_log.return_date) %></td>
       <td><%= el.borrow_log.days(el.borrow_log.createdAt) %> </td>
-      <% if(account.role == 'admin') { %>
+      <% if(session.role == 'admin') { %>
       <td>
-        <a href="/accounts/reminder<%= data.id %> ">Remind</a> ||
+        <a href="/accounts/reminder/<%= el.borrow_log.id %> ">Remind</a> ||
         <a href="/accounts/rollback/ <%= el.borrow_log.id %> ">Rollback</a>
       </td>
       <% } else { %>

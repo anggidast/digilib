@@ -4,23 +4,22 @@ const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'giecha16@gmail.com',
-    pass: 'Nevergiveup2'
-  },
-  debug: true
+    pass: 'nevergiveup2'
+  }
 });
 
-const sendMail = (email, name, title) => {
+const sendMail = (email, name, title, cb) => {
   const options = {
-    from: 'giecha16@gmail.com',
+    from: '"Digilib Reminder" <giecha16@gmail.com>',
     to: email,
     subject: "Reminder for your reads",
-    text: `Halo ${name}!! Hari ini adalah hari terakhir masa pinjam ebook ${title}, \n ayo segera bereskan bacaanmu sebelum masa pinjammu habis!`
+    text: `Halo ${name}!! \n Hari ini adalah hari terakhir masa pinjam ebook ${title}, \n ayo segera selesaikan bacaanmu sebelum masa pinjammu habis!\n\n\n Digilib Admin`
   };
 
   transporter.sendMail(options, (err, info) => {
-    if (err) console.log(err);
-    else console.log(`Reminder terkirim ke alamat email ${email}`);
+    if (err) return cb('Email tidak terkirim, terjadi kesalahan');
+    else cb(null);
   });
 }
 
-sendMail('adastariana@gmail.com', 'Anggi Dastariana', 'Sapiens');
+module.exports = sendMail;
