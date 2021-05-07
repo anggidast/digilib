@@ -1,6 +1,5 @@
 <%- include('partials/head')  -%>
 
-<body>
   <%- include('partials/nav')  -%>
 
   <% if(data) { %>
@@ -20,6 +19,7 @@
     <input required type="number" name="copies" id="copies" value="<%= data.copies || 0 %>"><br><br>
     <button type="submit">Save</button>
   </form>
+</center>
 </body>
 
 </html>
